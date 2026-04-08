@@ -1,7 +1,6 @@
 # Customer Personality Analysis
 
-End-to-end marketing analytics project covering customer segmentation, campaign effectiveness analysis, and a suite of predictive models for customer behavior. Built as a portfolio project demonstrating applied ML, statistical analysis, and business-oriented thinking on a real-world marketing dataset.
-
+End-to-end customer analytics pipeline integrating PCA-based feature compression, KMeans clustering, statistical campaign effectiveness testing, and supervised ML models for CLV and response prediction. Built on a 2,206-customer retail dataset with 29 behavioral and demographic features, producing customer segmentation labels, conversion propensity scores, and revenue estimates for targeted marketing optimization.
 ---
 
 ## Business Questions
@@ -15,7 +14,7 @@ End-to-end marketing analytics project covering customer segmentation, campaign 
 
 ## Dataset
 
-**Source:** [Customer Personality Analysis — Kaggle](https://www.kaggle.com/datasets/imakash3011/customer-personality-analysis)
+**Source:** [Customer Personality Analysis - Kaggle](https://www.kaggle.com/datasets/imakash3011/customer-personality-analysis)
 
 2,240 customers, 29 features covering demographics, purchase history across 6 product categories, 3 purchase channels, and 5 historical marketing campaigns.
 
@@ -128,22 +127,22 @@ Regression on per-category share of basket:
 |---|---|---|
 | Wines | 0.531 | Strong demographic signal → targetable |
 | Gold | 0.509 | Strong demographic signal → targetable |
-| Meat | 0.314 | Moderate — household composition driven |
+| Meat | 0.314 | Moderate - household composition driven |
 | Fish | 0.265 | Moderate |
 | Fruits | 0.182 | Weak |
 | Sweets | −0.499 | Unpredictable from demographics (impulse/occasion driven) |
 
-Sweet product spend share remains unpredictable even after log-transformation (R²=−0.004), confirmed by separate investigation. Binary classifier (buys/doesn't buy sweets) achieves AUC=0.770 — use this instead of spend regression for sweets targeting.
+Sweet product spend share remains unpredictable even after log-transformation (R²=−0.004), confirmed by separate investigation. Binary classifier (buys/doesn't buy sweets) achieves AUC=0.770 - use this instead of spend regression for sweets targeting.
 
 ### 7. Additional Analyses
 - **RFM Segmentation:** 330 Best Customers (avg spend 1,336, TotalAcceptedCmp=0.67), 171 Lost customers (avg spend 38, churn proba=0.61)
 - **Pareto Analysis:** Top 37.9% of customers generate 80% of revenue
-- **Deal Sensitivity:** High-sensitivity customers earn 37k avg vs 72k for low-sensitivity — discounting erodes margins without loyalty benefit
+- **Deal Sensitivity:** High-sensitivity customers earn 37k avg vs 72k for low-sensitivity - discounting erodes margins without loyalty benefit
 - **Product Co-purchase Lift Matrix:** Wines × Meat, Wines × Gold show above-chance co-purchase lift → bundle targeting opportunities
 - **Cumulative Gains / Lift Curve:** Model captures ~60% of responders by contacting top 30% of customers (vs 30% under random targeting)
 - **A/B Test Power Analysis:** Detecting a 5pp campaign lift requires n=907 per group; current dataset (n≈2,200) is sufficient for lifts ≥8%
 - **Cluster Stability (Bootstrap ARI):** 50-run bootstrap confirms moderate-to-good stability; high standard deviation (±0.22) reflects genuine customer continuum rather than hard-boundary clusters
-- **Error Analysis:** False negatives (missed responders) average 899 spending vs 603 for correct predictions — the model disproportionately misses high-value customers
+- **Error Analysis:** False negatives (missed responders) average 899 spending vs 603 for correct predictions - the model disproportionately misses high-value customers
 
 ---
 
@@ -151,25 +150,25 @@ Sweet product spend share remains unpredictable even after log-transformation (R
 
 1. **Income is the dominant driver** across all models. High-income customers respond to campaigns, spend more, and are reliably targetable.
 
-2. **Cluster 0 (affluent, ~40% of base) generates the majority of campaign responses and revenue.** Campaign 2 is the exception — it uniquely over-indexes on high-income customers (median accepted income 896k) suggesting a premium/niche positioning.
+2. **Cluster 0 (affluent, ~40% of base) generates the majority of campaign responses and revenue.** Campaign 2 is the exception - it uniquely over-indexes on high-income customers (median accepted income 896k) suggesting a premium/niche positioning.
 
-3. **CLV is highly predictable (R²=0.887)** — customer lifetime value can be reliably estimated from demographic and behavioral features at acquisition.
+3. **CLV is highly predictable (R²=0.887)** - customer lifetime value can be reliably estimated from demographic and behavioral features at acquisition.
 
-4. **Sweet products are the anomaly** — the only category where spend intensity shows no demographic signal. Binary targeting is the only viable ML approach; spend amount requires transaction-level or promotional data.
+4. **Sweet products are the anomaly** - the only category where spend intensity shows no demographic signal. Binary targeting is the only viable ML approach; spend amount requires transaction-level or promotional data.
 
-5. **150 high-value customers are at churn risk** (Cluster 0 members with Recency ≥74 days). Preferred channel for most is Store or Web — win-back campaigns should be routed accordingly.
+5. **150 high-value customers are at churn risk** (Cluster 0 members with Recency ≥74 days). Preferred channel for most is Store or Web - win-back campaigns should be routed accordingly.
 
-6. **The 80/20 rule does not hold strictly** — it's closer to a 38/80 split, meaning revenue is less concentrated than typical retail benchmarks.
+6. **The 80/20 rule does not hold strictly** - closer to a 38/80 split, meaning revenue is less concentrated than typical retail benchmarks.
 
 ---
 
 ## Limitations
 
-- **No true churn label** — churn is proxied by recency quartile (≥74 days). AUC of 0.616 after grid search reflects the difficulty of predicting a proxy rather than an observed event.
-- **Cross-sectional data** — no transaction-level timestamps. True CLV, basket evolution, and seasonal effects cannot be modeled.
-- **Catalog channel underrepresented** (158 customers, 7%) — channel preference model performs poorly on Catalog class (recall=0.03). Insufficient data to learn Catalog buyer patterns.
-- **Cluster boundaries are soft** — silhouette scores of 0.19–0.29 indicate overlapping segments. Clusters are operationally useful groupings, not ground-truth customer types.
-- **Sweet spend unpredictability** — requires promotional history or visit-level data to resolve.
+- **No true churn label** - churn is proxied by recency quartile (≥74 days). AUC of 0.616 after grid search reflects the difficulty of predicting a proxy rather than an observed event.
+- **Cross-sectional data** - no transaction-level timestamps. True CLV, basket evolution, and seasonal effects cannot be modeled.
+- **Catalog channel underrepresented** (158 customers, 7%) - channel preference model performs poorly on Catalog class (recall=0.03). Insufficient data to learn Catalog buyer patterns.
+- **Cluster boundaries are soft** - silhouette scores of 0.19–0.29 indicate overlapping segments. Clusters are operationally useful groupings, not ground-truth customer types.
+- **Sweet spend unpredictability** - requires promotional history or visit-level data to resolve.
 
 ---
 
