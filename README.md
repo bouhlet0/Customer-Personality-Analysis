@@ -112,7 +112,7 @@ Mann-Whitney U tests (non-parametric) with effect size (rank-biserial correlatio
 |---|---|---|---|
 | Campaign Response | Binary (last campaign) | GBM + SMOTE + XGBoost | AUC = 0.877 |
 | High Spender | Top 25% by spending (≥1,049) | GBM | Precision/Recall: 0.85/0.86 |
-| CLV Regression | Total spending () | Gradient Boosting Regressor | R²=0.887, MAE=110 |
+| CLV Regression | Total spending | Gradient Boosting Regressor | R²=0.887, MAE=110 |
 | Churn Risk | Recency proxy (≥74 days) | XGBoost + GridSearch | AUC = 0.616 |
 | Channel Preference | Web / Store / Catalog | XGBoost multiclass | AUC = 0.780 |
 | Product Propensity | 6 binary models (above-median buyer) | XGBoost | AUC range: 0.90–0.98 |
@@ -150,7 +150,7 @@ Sweet product spend share remains unpredictable even after log-transformation (R
 
 1. **Income is the dominant driver** across all models. High-income customers respond to campaigns, spend more, and are reliably targetable.
 
-2. **Cluster 0 (affluent, ~40% of base) generates the majority of campaign responses and revenue.** Campaign 2 is the exception - it uniquely over-indexes on high-income customers (median accepted income 896k) suggesting a premium/niche positioning.
+2. **Cluster 0 (affluent, ~40% of base) generates the majority of campaign responses and revenue.** Campaign 2 is the exception - it uniquely over-indexes on high-income customers (median accepted income 89.6k) suggesting a premium/niche positioning.
 
 3. **CLV is highly predictable (R²=0.887)** - customer lifetime value can be reliably estimated from demographic and behavioral features at acquisition.
 
